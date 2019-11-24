@@ -23,9 +23,9 @@ __author__  = 'Florian Hase'
 
 #=========================================================================
 
-from DatabaseHandler import DB_Cache
-from utilities       import Logger
-from utilities       import PhoenicsUnknownSettingsError
+from .           import DB_Cache
+from ..utilities import Logger
+from ..utilities import PhoenicsUnknownSettingsError
 
 #========================================================================
 
@@ -40,7 +40,7 @@ class DB_Werkzeug(Logger):
 
 	def create_database(self):
 		if self.config.get_db('format') == 'sqlite':
-			from DatabaseHandler.SqliteInterface import SqliteDatabase
+			from .SqliteInterface import SqliteDatabase
 			self.database = SqliteDatabase(self.config.get_db('path'), self.db_attrs, 'db', verbosity = self.config.get('verbosity'))
 		else:
 			PhoenicsUnknownSettingsError('did not understand database format: "%s".\n\tChoose from ["none", "sqlite"]' % self.config.get_db('format')) 

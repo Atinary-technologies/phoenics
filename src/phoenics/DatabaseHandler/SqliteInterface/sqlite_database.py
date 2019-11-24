@@ -28,13 +28,13 @@ import time
 import copy
 import sqlalchemy as sql
 
-from DatabaseInterfaces import AddEntry, FetchEntries, UpdateEntries
-from utilities import Logger
-from utilities.decorators import thread
+from .sqlite_interface import AddEntry, FetchEntries, UpdateEntries
+from utilities                       import Logger
+from utilities.decorators            import thread
 
 #=========================================================================
 
-class SQLiteDatabase(Logger):
+class SqliteDatabase(Logger):
 
 	SQLITE_COLUMNS = {'float':   sql.Float(),
 					  'bool':    sql.Boolean(),
@@ -49,7 +49,7 @@ class SQLiteDatabase(Logger):
 		self.UPDATE_REQUESTS  = []
 		Logger.__init__(self, 'SQLite interface', verbosity = verbosity)
 
-		self.db_path              = 'sqlite:///%s' % path
+		self.db_path              = 'sqlite:///%s/search_progress.db' % path
 		self.attributes           = attributes
 		self.name                 = name
 		
@@ -155,7 +155,7 @@ class SQLiteDatabase(Logger):
 				condition = getattr(self.table.c, key) == condition_values[index]
 			selection = selection.where(condition)
 
-		fetch_entries = FetchEntries(self.db, self.table, selection, name = self.name)
+		fetch_entries = FetchEntries(self.db, self.table, selection)
 		fetch_keys    = str(uuid.uuid4())
 		self.READING_REQUESTS[fetch_keys] = fetch_entries
 		if not self._processing_requests:

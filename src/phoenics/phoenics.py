@@ -28,13 +28,13 @@ import os, sys
 import numpy as np 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from Acquisition          import Acquisition
-from BayesianNetwork      import BayesianNetwork
-from ObservationProcessor import ObservationProcessor
-from RandomSampler        import RandomSampler
-from SampleSelector       import SampleSelector
-from utilities            import ConfigParser, Logger
-from utilities            import PhoenicsNotFoundError
+from .Acquisition          import Acquisition
+from .BayesianNetwork      import BayesianNetwork
+from .ObservationProcessor import ObservationProcessor
+from .RandomSampler        import RandomSampler
+from .SampleSelector       import SampleSelector
+from .utilities            import ConfigParser, Logger
+from .utilities            import PhoenicsNotFoundError
 
 #========================================================================
 
@@ -77,7 +77,7 @@ class Phoenics(Logger):
 				PhoenicsNotFoundError('Could not create database directory: %s' % self.config.get_db('path'))		
 
 		if self.config.get_db('has_db'):
-			from DatabaseHandler import DatabaseHandler
+			from .DatabaseHandler import DatabaseHandler
 			self.db_handler = DatabaseHandler(self.config)
 
 

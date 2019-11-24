@@ -1,4 +1,4 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 
 '''
 Licensed to the Apache Software Foundation (ASF) under one or more 
@@ -23,7 +23,21 @@ __author__  = 'Florian Hase'
 
 #=========================================================================
 
-from DatabaseHandler.db_cache         import DB_Cache
-from DatabaseHandler.db_werkzeug      import DB_Werkzeug
-from DatabaseHandler.database_handler import DatabaseHandler
+import sys
+
+from utilities import PhoenicsModuleError
+
+#=======================================================================
+
+try:
+	import sqlalchemy as sql
+except ModuleNotFoundError:
+	_, error_message, _ = sys.exc_info()
+	extension = '\n\tTry installing the sqlalchemy package or use a different database framework instead.'
+	PhoenicsModuleError(str(error_message) + extension)
+
+#=======================================================================
+
+from .sqlite_operations import AddEntry, FetchEntries, UpdateEntries
+from .sqlite_database   import SqliteDatabase
 

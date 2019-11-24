@@ -1,5 +1,6 @@
 # Phoenics
 
+[![Build Status](https://travis-ci.com/FlorianHase/phoenics.svg?token=rULvnKYmWdFF3JqQBVVW&branch=master)](https://travis-ci.com/FlorianHase/phoenics)
 
 Phoenics is an open source optimization algorithm combining ideas from Bayesian optimization with Bayesian Kernel Density estimation [1]. It performs global optimization on expensive to evaluate objectives, such as physical experiments or demanding computations. 
 

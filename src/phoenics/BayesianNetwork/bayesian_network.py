@@ -33,11 +33,11 @@ import numpy as np
 from utilities       import Logger
 from utilities       import PhoenicsUnknownSettingsError
 
-import pyximport
-pyximport.install(
-	setup_args = {'include_dirs': np.get_include()}, 
-	reload_support = True)
-from BayesianNetwork.kernel_evaluations import KernelEvaluator
+#import pyximport
+#pyximport.install(
+#	setup_args = {'include_dirs': np.get_include()}, 
+#	reload_support = True)
+from .kernel_evaluations import KernelEvaluator
 
 #=========================================================================
 
@@ -97,7 +97,7 @@ class BayesianNetwork(Logger):
 		results_file = '%s/sampling_results.pkl' % (self.config.get('scratch_dir'))
 
 		# submit network sampling
-		subprocess.call('%s %s %s %s' % (self.network_executable, self.config.get('home'), sim_file, results_file), shell = True)
+		subprocess.call('python %s %s %s %s' % (self.network_executable, self.config.get('home'), sim_file, results_file), shell = True)
 
 		# pick up 
 		with open(results_file, 'rb') as content:

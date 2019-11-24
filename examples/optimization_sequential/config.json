@@ -1,7 +1,8 @@
 {
 	"general": {
 		"parallel": true,
-		"boosted":  false
+		"boosted":  false,
+		"backend": "edward"
 	},
 	"parameters": [
 		{"name": "x", "type": "continuous", "low": -5.0, "high": 10.0, "size": 1},

@@ -26,9 +26,9 @@ __author__  = 'Florian Hase'
 import numpy as np 
 from   datetime import datetime
 
-from DatabaseHandler import DB_Werkzeug
-from utilities       import Logger
-from utilities       import PhoenicsUnknownSettingsError, PhoenicsValueError
+from .           import DB_Werkzeug
+from ..utilities import Logger
+from ..utilities import PhoenicsUnknownSettingsError, PhoenicsValueError
 
 #========================================================================
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env 
+#!/usr/bin/env python 
 
 '''
 Licensed to the Apache Software Foundation (ASF) under one or more 
@@ -16,33 +16,14 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations 
 under the License.
 
-The code in this file was developed at Harvard University (2018) and 
-modified at ChemOS Inc. (2019) as stated in the NOTICE file.
+The code in this file was developed at ChemOS Inc. (2019).
 '''
 
 __author__  = 'Florian Hase'
 
 #=========================================================================
 
-import sys
-
-from utilities import PhoenicsModuleError, PhoenicsVersionError
-
-#=========================================================================
-
-try:
-    import tensorflow as tf
-except ModuleNotFoundError:
-    _, error_message, _ = sys.exc_info()
-    extension = '\n\tTry installing the tensorflow package or use a different backend instead.'
-    PhoenicsModuleError(str(error_message) + extension)
-
-#=========================================================================
-
-
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
-from BayesianNetwork.TfprobInterface.numpy_graph      import NumpyGraph
-from BayesianNetwork.TfprobInterface.tfprob_interface import TfprobNetwork
+from .db_cache         import DB_Cache
+from .db_werkzeug      import DB_Werkzeug
+from .database_handler import DatabaseHandler
 
