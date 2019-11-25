@@ -39,7 +39,7 @@ else:
 
 setup(
     name             = 'phoenics',
-    version          = '0.1.0-alpha.13',
+    version          = '0.1.2',
     description      = 'Phoenics: A deep Bayesian optimizer',
     long_description = readme(),
 	long_description_content_type = 'text/markdown',
@@ -50,7 +50,7 @@ setup(
         'Topic :: Scientific/Engineering',
     ],
     url              = 'https://github.com/chemos-inc/phoenics',
-    author           = 'Florian Hase',
+    author           = 'ChemOS Inc.',
     author_email     = 'florian@chemos.io',
     license          = 'Apache license, version 2',
     packages         = [
@@ -81,6 +81,7 @@ setup(
 		'pyyaml>=5.1',
 		'sqlalchemy>=1.3',
 		'watchdog>=0.9',
+		'wheel>=0.33',
 	],
     python_requires  = '>=3.6',
 )
