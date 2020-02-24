@@ -12,7 +12,7 @@ Configuration details for this optimization procedure are specified in `config.j
 		"batches": 1,
 		"parallel": true,
 		"boosted":  true,
-		"backend": "edward",
+		"backend": "tfprob",
 		"sampling_strategies": 2
     },
     "parameters": [
