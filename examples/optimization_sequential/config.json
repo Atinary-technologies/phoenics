@@ -3,7 +3,7 @@
 		"batches": 1,
 		"parallel": true,
 		"boosted":  true,
-		"backend": "edward",
+		"backend": "tfprob",
 		"sampling_strategies": 2
 	},
 	"parameters": [

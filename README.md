@@ -13,14 +13,24 @@ Check out the `examples` folder for detailed descriptions and code examples for:
 
 # Installation
 
-## Virtual Environment (Optional)
+## Environment (Optional)
 
-It is suggested to have a fresh installed virtual environment in order to avoid to have pip modules compatibility issues. This is optional but recommended.
+It is suggested to have a fresh environment in order to avoid to have pip modules compatibility issues. This is optional but recommended.
+
+This can be done with Venv or Anaconda.
+
+### Venv
 ```bash
-python3.6 -m venv phoenics-venv
-source phoenics-venv/bin/activate
+python3.6 -m venv phoenics-env
+source phoenics-env/bin/activate
 ```
 A `venv` folder will be created in the current directory and the virtual enviroment will be activated.
+
+### Anaconda
+```bash
+conda create --name phoenics-env python=3.6
+conda activate phoenics-env
+```
 
 ## Phoenics as pip module
 
@@ -50,11 +60,11 @@ This code has been tested with Python 3.6 and 3.7 on Unix platforms and requires
 
 Phoenics requires additional modules for the backend of its Bayesian neural network. Two options are currently supported:
 * `tfprob` backend:
-  * tensorflow == 2.1.0
-  * tensorflow-probability == 0.9.0
+  * tensorflow == 1.15
+  * tensorflow-probability == 0.8.0
 ```bash
-pip install tensorflow==2.1.0
-pip install tensorflow-probability==0.9.0
+pip install tensorflow==1.15
+pip install tensorflow-probability==0.8.0
 ```
 * `edward` backend:
   * edward == 1.3.5
