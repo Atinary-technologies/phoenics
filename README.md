@@ -15,7 +15,7 @@ Check out the `examples` folder for detailed descriptions and code examples for:
 
 ## Environment (Optional)
 
-It is suggested to have a fresh environment in order to avoid to have pip modules compatibility issues. This is optional but recommended.
+We suggest to create a new environment for the installation of Phoenics to avoid any compatibility issues with pre-existing python packages. This is optional, but recommended.
 
 This can be done with Venv or Anaconda.
 
