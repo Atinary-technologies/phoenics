@@ -34,15 +34,16 @@ conda activate phoenics-env
 
 ## Phoenics as pip module
 
-The Phoenics module can be installed directly using the function `python-pip`.
+Phoenics can be installed directly with pip.
+
 ```bash
 apt-get install python-pip
 pip install phoenics
 ```
 
-## Phoenics from source code
+## Phoenics from source
 
-Phoenics can also be installed from the source code. This way allows anyone to make and test changes on the code.
+Phoenics can also be installed from source. This way allows anyone to make and test changes on the code.
 ```bash
 git clone https://github.com/chemos-inc/phoenics.git
 cd phoenics
