@@ -21,15 +21,27 @@ This can be done with Venv or Anaconda.
 
 ### Venv
 ```bash
-python3.6 -m venv phoenics-env
+python3 -m venv phoenics-env
 source phoenics-env/bin/activate
 ```
 A `venv` folder will be created in the current directory and the virtual enviroment will be activated.
 
+Note: Edward backend requires Python 3.6 in order to install all needed dependencies. Python version can be specified as follow:
+
+```bash
+python3.6 -m venv phoenics-env
+```
+
+
 ### Anaconda
 ```bash
-conda create --name phoenics-env python=3.6
+conda create --name phoenics-env
 conda activate phoenics-env
+```
+Note: Edward backend requires Python 3.6 in order to install all needed dependencies. Python version can be specified as follow:
+
+```bash
+conda create --name phoenics-env python=3.6
 ```
 
 ## Phoenics as pip module
