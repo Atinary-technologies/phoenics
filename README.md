@@ -13,17 +13,53 @@ Check out the `examples` folder for detailed descriptions and code examples for:
 
 # Installation
 
-Phoenics can be installed via pip
+## Environment (Optional)
+
+We suggest to create a new environment for the installation of Phoenics to avoid any compatibility issues with pre-existing python packages. This is optional, but recommended.
+
+This can be done with Venv or Anaconda.
+
+### Venv
+```bash
+python3 -m venv phoenics-env
+source phoenics-env/bin/activate
 ```
-  apt-get install python-pip
-  pip install phoenics
+A `venv` folder will be created in the current directory and the virtual enviroment will be activated.
+
+Note: Edward backend requires Python 3.6 in order to install all needed dependencies. Python version can be specified as follow:
+
+```bash
+python3.6 -m venv phoenics-env
 ```
 
-or by cloning this repository and building it from source
+
+### Anaconda
+```bash
+conda create --name phoenics-env
+conda activate phoenics-env
 ```
-  git clone https://github.com/chemos-inc/phoenics.git
-  cd phoenics
-  python setup.py install
+Note: Edward backend requires Python 3.6 in order to install all needed dependencies. Python version can be specified as follow:
+
+```bash
+conda create --name phoenics-env python=3.6
+```
+
+## Phoenics as pip module
+
+Phoenics can be installed directly with pip.
+
+```bash
+apt-get install python-pip
+pip install phoenics
+```
+
+## Phoenics from source
+
+Phoenics can also be installed from source. This way allows anyone to make and test changes on the code.
+```bash
+git clone https://github.com/chemos-inc/phoenics.git
+cd phoenics
+python setup.py install
 ```
 
 # Dependencies and requirements
@@ -38,10 +74,18 @@ This code has been tested with Python 3.6 and 3.7 on Unix platforms and requires
 Phoenics requires additional modules for the backend of its Bayesian neural network. Two options are currently supported:
 * `tfprob` backend:
   * tensorflow == 1.15
-  * tensorflow-probability == 0.8
+  * tensorflow-probability == 0.8.0
+```bash
+pip install tensorflow==1.15
+pip install tensorflow-probability==0.8.0
+```
 * `edward` backend:
   * edward == 1.3.5
   * tensorflow == 1.4.1
+```bash
+pip install edward==1.3.5
+pip install tensorflow==1.4.1
+```
 
 Note, that the `edward` backend requires Python 3.6 and will not work with Python 3.7.  While at the present time only unix operating system, we hope to provide Windows version of the code in the future.
 

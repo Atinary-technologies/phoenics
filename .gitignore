@@ -60,7 +60,9 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
-# pycharm stuff
+# IDE stuff
 .idea/
+.vscode/
 
-
+# Virtual environment
+venv
