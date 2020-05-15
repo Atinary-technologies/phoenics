@@ -49,10 +49,10 @@ default_general_configurations = {
 # DEFAULT DATABASE CONFIGURATIONS
 
 default_database_configurations = {
-	'format':           'sqlite',
+	'data_storage':      None,
 	'path':             './SearchProgress',
-	'log_observations':  True,
-	'log_runtimes':      True,
+	'log_observations':  False,
+	'log_runtimes':      False,
 }
 
 #========================================================================

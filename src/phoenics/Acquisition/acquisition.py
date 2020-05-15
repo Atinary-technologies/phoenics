@@ -46,27 +46,27 @@ class Acquisition(Logger):
 		self.num_cpus         = multiprocessing.cpu_count()
 
 
-	def _propose_randomly(self, best_params, num_samples, dominant_samples = None):
+	def _propose_randomly(self, best_params, num_samples, dominant_samples = None, num_obs = 1.0):
 		# get uniform samples
 		if dominant_samples is None:
-			uniform_samples = self.random_sampler.draw(num = self.total_num_vars * num_samples)	
-			perturb_samples = self.random_sampler.perturb(best_params, num = self.total_num_vars * num_samples)
+			uniform_samples = self.random_sampler.draw(num = self.total_num_vars * num_samples)
+			perturb_samples = self.random_sampler.perturb(pos=best_params, num = self.total_num_vars * num_samples, scale=0.3/num_obs)
 			samples         = np.concatenate([uniform_samples, perturb_samples])
 		else:
 			dominant_features = self.config.feature_process_constrained
 			for batch_sample in dominant_samples:
 				uniform_samples = self.random_sampler.draw(num = self.total_num_vars * num_samples // len(dominant_samples))
-				perturb_samples = self.random_sampler.perturb(best_params, num = self.total_num_vars * num_samples)
+				perturb_samples = self.random_sampler.perturb(pos=best_params, num = self.total_num_vars * num_samples, scale=0.3/num_obs)
 				samples         = np.concatenate([uniform_samples, perturb_samples])
 			samples[:, dominant_features] = batch_sample[dominant_features]
 		return samples
 
 
-	def _proposal_optimization_thread(self, proposals, kernel_contribution, batch_index, return_index, return_dict = None, dominant_samples = None):
+	def _proposal_optimization_thread(self, proposals, bayesian_network, batch_index, return_index, return_dict = None, dominant_samples = None):
 		self.log('starting process for %d' % batch_index, 'INFO')
 
 		def kernel(x):
-			num, inv_den = kernel_contribution(x)
+			num, inv_den = bayesian_network.kernel_contribution(x)
 			return (num + self.sampling_param_values[batch_index]) * inv_den 
 	
 		if dominant_samples is not None:
@@ -89,7 +89,7 @@ class Acquisition(Logger):
 			return optimized	
 
 
-	def _optimize_proposals(self, random_proposals, kernel_contribution, dominant_samples = None):
+	def _optimize_proposals(self, random_proposals, bayesian_network, dominant_samples = None):
 
 		if self.config.get('parallel'):
 			result_dict = Manager().dict()
@@ -104,7 +104,7 @@ class Acquisition(Logger):
 					split_start  = split_size * split_index
 					split_end    = split_size * (split_index + 1)
 					return_index = num_splits * batch_index + split_index
-					process = Process(target = self._proposal_optimization_thread, args = (random_proposals[split_start : split_end], kernel_contribution, batch_index, return_index, result_dict, dominant_samples))
+					process = Process(target = self._proposal_optimization_thread, args = (random_proposals[split_start : split_end], bayesian_network, batch_index, return_index, result_dict, dominant_samples))
 					processes.append(process)
 					process.start()
 
@@ -116,7 +116,7 @@ class Acquisition(Logger):
 			result_dict = {}
 			for batch_index in range(len(self.sampling_param_values)):
 				return_index = batch_index
-				result_dict[batch_index] = self._proposal_optimization_thread(random_proposals, kernel_contribution, batch_index, return_index, dominant_samples = dominant_samples)
+				result_dict[batch_index] = self._proposal_optimization_thread(random_proposals, bayesian_network, batch_index, return_index, dominant_samples = dominant_samples)
 
 		# collect optimized samples
 		samples = []
@@ -130,7 +130,7 @@ class Acquisition(Logger):
 		return np.array(samples)
 
 
-	def propose(self, best_params, kernel_contribution, sampling_param_values, 
+	def propose(self, best_params, bayesian_network, sampling_param_values, num_obs,
 				num_samples = 50, 
 				parallel = 'True',
 				dominant_samples  = None,
@@ -142,13 +142,13 @@ class Acquisition(Logger):
 		self.sampling_param_values = sampling_param_values
 
 		random_proposals = self._propose_randomly(
-				best_params, num_samples, dominant_samples = dominant_samples,
+				best_params, num_samples, dominant_samples = dominant_samples, num_obs = num_obs
 			)
 
 		import time
 		start = time.time()
 		optimized_proposals = self._optimize_proposals(
-				random_proposals, kernel_contribution, dominant_samples = dominant_samples,
+				random_proposals, bayesian_network, dominant_samples = dominant_samples,
 			)
 		end   = time.time()
 		print('[TIME]:  ', end - start, '  (optimizing proposals)')

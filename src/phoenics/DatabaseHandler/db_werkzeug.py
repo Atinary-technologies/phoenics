@@ -39,11 +39,13 @@ class DB_Werkzeug(Logger):
 
 
 	def create_database(self):
-		if self.config.get_db('format') == 'sqlite':
+		if not self.config.get_db('data_storage'):
+			self.log('No data storage specified. Phoenics will not store any information.', 'INFO')
+		elif self.config.get_db('data_storage') == 'sqlite':
 			from .SqliteInterface import SqliteDatabase
 			self.database = SqliteDatabase(self.config.get_db('path'), self.db_attrs, 'db', verbosity = self.config.get('verbosity'))
 		else:
-			PhoenicsUnknownSettingsError('did not understand database format: "%s".\n\tChoose from ["none", "sqlite"]' % self.config.get_db('format')) 
+			PhoenicsUnknownSettingsError('did not understand data storage: "%s".\n\tChoose from [null, "sqlite"]' % self.config.get_db('data_storage')) 
 
 
 	def create_cache(self):

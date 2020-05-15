@@ -116,7 +116,7 @@ class ConfigParser(Logger):
 			if general_value in ['True', 'False']:
 				general_value = general_value == 'True'
 			self.database.add_attr(general_key, general_value)
-		if self.database.format in ['sqlite']:
+		if self.database.data_storage in ['sqlite']:
 			self.database.add_attr('has_db', True)
 		else:
 			self.database.add_attr('has_db', False)

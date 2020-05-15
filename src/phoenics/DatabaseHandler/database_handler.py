@@ -61,7 +61,7 @@ class DatabaseHandler(DB_Werkzeug, Logger):
 			for attr in ['start_time', 'end_time', 'runtime']:
 				db_entry[attr] = 'n/a'
 		if not self.config.get_db('log_observations'):
-			db_entry[received_obs] = []
+			db_entry['received_obs'] = []
 		self.db_add(db_entry)
 
 
