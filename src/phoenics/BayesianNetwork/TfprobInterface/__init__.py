@@ -31,18 +31,18 @@ from utilities import PhoenicsModuleError, PhoenicsVersionError
 #=========================================================================
 
 try:
-    import tensorflow as tf
+  import tensorflow as tf
 except ModuleNotFoundError:
-    _, error_message, _ = sys.exc_info()
-    extension = '\n\tTry installing the tensorflow package or use a different backend instead.'
-    PhoenicsModuleError(str(error_message) + extension)
+  _, error_message, _ = sys.exc_info()
+  extension = '\n\tTry installing the tensorflow package or use a different backend instead.'
+  PhoenicsModuleError(str(error_message) + extension)
 
 try: 
-	import tensorflow_probability as tfp
+  import tensorflow_probability as tfp
 except ModuleNotFoundError:
-	_, error_message, _ = sys.exc_info()
-	extension = '\n\tTry installing the tensorflow-probability package or use a different backend instead.'
-	PhoenicsModuleError(str(error_message) + extension)
+  _, error_message, _ = sys.exc_info()
+  extension = '\n\tTry installing the tensorflow-probability package or use a different backend instead.'
+  PhoenicsModuleError(str(error_message) + extension)
 
 #=========================================================================
 

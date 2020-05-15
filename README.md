@@ -20,37 +20,48 @@ We suggest to create a new environment for the installation of Phoenics to avoid
 This can be done with Venv or Anaconda.
 
 ### Venv
+Create the virtual environment:
 ```bash
-python3 -m venv phoenics-env
-source phoenics-env/bin/activate
+python -m venv venv
 ```
+Activate (Unix):
+```bash
+source venv/bin/activate
+```
+Activate (Windows):
+```bash
+.\venv\Scripts\activate
+```
+
 A `venv` folder will be created in the current directory and the virtual enviroment will be activated.
 
 Note: Edward backend requires Python 3.6 in order to install all needed dependencies. Python version can be specified as follow:
 
 ```bash
-python3.6 -m venv phoenics-env
+python3.6 -m venv venv
 ```
 
 
 ### Anaconda
+
 ```bash
-conda create --name phoenics-env
-conda activate phoenics-env
+conda create --name venv
+conda activate venv
 ```
+
 Note: Edward backend requires Python 3.6 in order to install all needed dependencies. Python version can be specified as follow:
 
 ```bash
-conda create --name phoenics-env python=3.6
+conda create --name venv python=3.6
 ```
 
 ## Phoenics as pip module
 
-Phoenics can be installed directly with pip.
+Phoenics can be installed directly with pip:
 
 ```bash
 apt-get install python-pip
-pip install phoenics
+python -m pip install phoenics
 ```
 
 ## Phoenics from source
@@ -59,36 +70,75 @@ Phoenics can also be installed from source. This way allows anyone to make and t
 ```bash
 git clone https://github.com/chemos-inc/phoenics.git
 cd phoenics
-python setup.py install
+python -m pip install -U pip
+python -m pip install -r requirements.txt
+python -m pip install -e .
 ```
 
 # Dependencies and requirements
 
-This code has been tested with Python 3.6 and 3.7 on Unix platforms and requires the following packages
+This code has been tested with Python 3.6 and 3.7 on Unix platforms and on Windows 10.
+
+## PIP
+ It requires the following `pip` packages:
 * numpy
 * pyyaml >= 5.1
 * sqlalchemy >= 1.3
 * watchdog >= 0.9
 * wheel >= 0.33
 
-Phoenics requires additional modules for the backend of its Bayesian neural network. Two options are currently supported:
-* `tfprob` backend:
-  * tensorflow == 1.15
-  * tensorflow-probability == 0.8.0
-```bash
-pip install tensorflow==1.15
-pip install tensorflow-probability==0.8.0
+These will be automatically installed by running the `setup.py` or by installing Phoenics as a pip module.
+
+## Windows
+Requirements for Windows:
+*  `Microsoft C++ Build Tools` ([Download Link](https://visualstudio.microsoft.com/visual-cpp-build-tools/))
+*  64-bit version of Python ([Python 3.6.8 64 bit installer](https://www.python.org/ftp/python/3.6.8/python-3.6.8-amd64.exe))
+
+## Backend
+Phoenics requires additional modules for the backend of its Bayesian Neural Network. Two options are currently supported: `tensorflow-probability` and `edward`.
+### Tensorflow probability
+To use this backend, specify it in the configuration file:
+```json
+"backend": "tfprob"
 ```
-* `edward` backend:
-  * edward == 1.3.5
-  * tensorflow == 1.4.1
+Install it with:
 ```bash
-pip install edward==1.3.5
-pip install tensorflow==1.4.1
+python -m pip install tensorflow==1.15
+python -m pip install tensorflow-probability==0.8.0
+```
+Note: A warning will be generated if a version lower than 41.0.0 of `setuptools` is installed. To fix the warning run:
+```bash
+python -m pip install setuptools==41.0.0
+```
+### Edward
+To use this backend, specify it in the configuration file:
+```json
+"backend": "edward"
+```
+Install it with:
+```bash
+python -m pip install edward==1.3.5
+python -m pip install tensorflow==1.4.1
 ```
 
-Note, that the `edward` backend requires Python 3.6 and will not work with Python 3.7.  While at the present time only unix operating system, we hope to provide Windows version of the code in the future.
+Note: `tensorflow==1.4.1` can not be installed with Python 3.7+.
 
+# Run the example
+
+```bash
+git clone git@github.com:chemos-inc/phoenics.git
+cd phoenics
+python -m venv venv
+source venv/bin/activate # on Windows: .\venv\Scripts\activate
+python -m pip install -U pip
+python -m pip install setuptools==41.0.0
+python -m pip install -r requirements.txt
+python -m pip install tensorflow==1.15
+python -m pip install tensorflow-probability==0.8.0
+python -m pip install -e .
+cd examples/optimization_sequential/
+python ./optimize_branin.py
+```
 
 # Using Phoenics
 

@@ -10,7 +10,7 @@ from distutils.extension import Extension
 #===============================================================================
 
 def readme():
-    with open('README.md') as content:
+    with open('README.md', encoding="utf-8") as content:
         return content.read()
 
 #===============================================================================
@@ -81,7 +81,7 @@ setup(
 		'pyyaml>=5.1',
 		'sqlalchemy>=1.3',
 		'watchdog>=0.9',
-		'wheel>=0.33',
+		'wheel>=0.33'
 	],
     python_requires  = '>=3.6',
 )

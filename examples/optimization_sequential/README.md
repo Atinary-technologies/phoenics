@@ -2,6 +2,18 @@
 
 This simple example illustrates how Phoenics can be used for the sequential optimization of a single objective function. We consider the Branin function for this illustration, which is non-convex with three global minima. 
 
+### Dependencies
+This example requires the following dependencies:
+```python
+tensorflow==1.4.1
+edward==1.3.5
+```
+These dependencies can be installed with pip:
+```bash
+pip install tensorflow==1.4.1
+pip install edward==1.3.5
+```
+
 ## Configuration details
 
 Configuration details for this optimization procedure are specified in `config.json`

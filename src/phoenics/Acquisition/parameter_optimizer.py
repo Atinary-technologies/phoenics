@@ -48,7 +48,7 @@ class ParameterOptimizer(Logger):
 			from Acquisition.NumpyOptimizers import AdamOptimizer
 			self.opt_con = AdamOptimizer()
 		else:
-			PhoenicsUnkownSettingsError('did not understand continuous optimizer "%s".\n\tPlease choose from "adam"' % cont_opt_name)
+			PhoenicsUnknownSettingsError('did not understand continuous optimizer "%s".\n\tPlease choose from "adam"' % cont_opt_name)
 
 
 	def within_bounds(self, sample):

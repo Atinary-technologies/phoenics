@@ -99,21 +99,19 @@ class Phoenics(Logger):
 			obs_params, obs_objs = self.obs_processor.process(observations)	
 			
 			self.bayesian_network.sample(obs_params, obs_objs)
-			self.bayesian_network.build_kernels()
 			sampling_param_values   = self.bayesian_network.sampling_param_values
 			dominant_strategy_index = self.iter_counter % len(sampling_param_values)
 			dominant_strategy_value = np.array([sampling_param_values[dominant_strategy_index]])
 
 			# prepare sample generation / selection
 			best_params         = obs_params[np.argmin(obs_objs)]
-			kernel_contribution = self.bayesian_network.kernel_contribution
 
 			print('='*10)
 
 			# select the remaining proposals
-			proposed_samples = self.acquisition.propose(best_params, kernel_contribution, sampling_param_values)
+			proposed_samples = self.acquisition.propose(best_params=best_params, bayesian_network=self.bayesian_network, sampling_param_values=sampling_param_values, num_obs=len(obs_objs))
 			samples          = self.sample_selector.select(
-					self.config.get('batches'), proposed_samples, kernel_contribution, sampling_param_values, obs_params
+					self.config.get('batches'), proposed_samples, self.bayesian_network, sampling_param_values, obs_params
 				)
 
 

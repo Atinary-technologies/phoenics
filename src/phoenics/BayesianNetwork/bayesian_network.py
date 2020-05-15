@@ -28,17 +28,12 @@ import os
 import time
 import pickle
 import subprocess
+import sys
 import numpy as np 
 
 from utilities       import Logger
 from utilities       import PhoenicsUnknownSettingsError
-
-#import pyximport
-#pyximport.install(
-#	setup_args = {'include_dirs': np.get_include()}, 
-#	reload_support = True)
 from .kernel_evaluations import KernelEvaluator
-
 #=========================================================================
 
 class BayesianNetwork(Logger):
@@ -52,8 +47,6 @@ class BayesianNetwork(Logger):
 		if 'bayesian_network' in verbosity:
 			verbosity = verbosity['bayesian_network']
 		Logger.__init__(self, 'BayesianNetwork', verbosity = verbosity)
-		self.kernel_contribution = lambda x: (np.sum(x), 1.)
-
 		# get bnn model detals
 		if model_details == None:
 			from BayesianNetwork.model_details import model_details
@@ -97,7 +90,7 @@ class BayesianNetwork(Logger):
 		results_file = '%s/sampling_results.pkl' % (self.config.get('scratch_dir'))
 
 		# submit network sampling
-		subprocess.call('python %s %s %s %s' % (self.network_executable, self.config.get('home'), sim_file, results_file), shell = True)
+		subprocess.call('%s %s %s %s %s' % (sys.executable, self.network_executable, self.config.get('home'), sim_file, results_file), shell = True)
 
 		# pick up 
 		with open(results_file, 'rb') as content:
@@ -109,7 +102,7 @@ class BayesianNetwork(Logger):
 		self.has_sampled = True
 
 
-	def build_kernels(self):
+	def kernel_contribution(self, proposed_sample):
 		assert self.has_sampled
 		trace_kernels = self.trace_kernels
 		obs_objs      = self.obs_objs
@@ -126,13 +119,8 @@ class BayesianNetwork(Logger):
 		else:
 			lower_prob_bound = 1e-25
 
-		self.kernel_evaluator = KernelEvaluator(locs, sqrt_precs, lower_prob_bound, obs_objs, self.inverse_volume)
-		
-		def kernel_contribution(proposed_sample):
-			num, inv_den, _ = self.kernel_evaluator.get_kernel(proposed_sample.astype(np.float64))
-			return num, inv_den
-
-		self.kernel_contribution = kernel_contribution
+		num, inv_den, _ = KernelEvaluator(locs, sqrt_precs, lower_prob_bound, obs_objs, self.inverse_volume).get_kernel(proposed_sample.astype(np.float64))
+		return num, inv_den
 
 
 
