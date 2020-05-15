@@ -90,7 +90,7 @@ class BayesianNetwork(Logger):
 		results_file = '%s/sampling_results.pkl' % (self.config.get('scratch_dir'))
 
 		# submit network sampling
-		subprocess.call('%s %s %s %s %s' % (sys.executable, self.network_executable, self.config.get('home'), sim_file, results_file), shell = True)
+		subprocess.call('python %s %s %s %s' % (self.network_executable, self.config.get('home'), sim_file, results_file), shell = True)
 
 		# pick up 
 		with open(results_file, 'rb') as content:
