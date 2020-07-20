@@ -20,7 +20,7 @@ Check out our `examples` for a few highlights and use cases of Phoenics.
 
 ### Getting started
 
-Phoenics is developed for Linux based systems. We also support MacOS and Windows, but support for these platforms is experimental at the moment. Although we hope that you will not encounter any issues we would appreciate if you run into any of them.
+Phoenics is developed for Linux based systems. We also support MacOS and Windows, but support for these platforms is experimental at the moment. Although we hope that you will not encounter any issues we would appreciate if you contacted us should you run into any of them.
 
 ###### Option 1 (recommended)
 Phoenics can be installed for all three platforms via pip
@@ -60,7 +60,7 @@ when using a Z shell, where `<backend>` indicates the selected backend (`edward`
 
 ##### Dependencies 
 
-Phoenics is developed for Python >= 3.6 and supported on plaforms based on Unix and Windows 10. It relies on the following Python packages (summarized in `requirements.txt`:
+Phoenics is developed for Python >= 3.6 and supported on plaforms based on Unix and Windows 10. It relies on the following Python packages (summarized in `requirements.txt`):
 
 - `numpy` 
 - `pyyaml` >= 5.1
