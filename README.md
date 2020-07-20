@@ -1,6 +1,6 @@
 # Data-driven experiment planning strategies 
 
-This repository offers data-driven experiment planning strategies following principles of Bayesian optimization in combination with Bayesian kernel density estimation to perform cost-effective global optimization on physical experiments and/or resource-intensive computations.
+As part of the Experiment Planners, we offer data-driven experiment planning strategies following principles of Bayesian optimization in combination with Bayesian kernel density estimation to perform cost-effective global optimization on physical experiments and/or resource-intensive computations.
 
 The mathematical formulation of this algorithms provided in this repository are based on Phoenics [1]. Among several functionalities, Phoenics targets data-driven experiment planning tasks particularly in the context of chemistry and materials science. It is possible to use Phoenics for the rapid identification of optimal continuous process parameters for physical experiments or computations. Phoenics natively supports sequential and batch-wise optimizations. 
 
