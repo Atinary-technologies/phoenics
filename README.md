@@ -7,7 +7,7 @@ The mathematical formulation of this algorithms provided in this repository are 
 ![continuous_integration](https://github.com/chemos-inc-dev/phoenics/workflows/Continuous%20integration/badge.svg)
 [![codecov](https://codecov.io/gh/chemos-inc-dev/phoenics/branch/dev/graph/badge.svg?token=anTJ0HXjI6)](https://codecov.io/gh/chemos-inc-dev/phoenics)
 ![github_license](https://img.shields.io/github/license/chemos-inc/phoenics)
-![github_issues](https://img.shields.io/github/issues/chemos-inc/phoenics)
+![github_issues](https://img.shields.io/github/issues/chemos-inc/experiment_planners)
 ![pypi_version](https://img.shields.io/pypi/v/phoenics)
 
 Check out our `examples` for a few highlights and use cases of Phoenics.
