@@ -1,73 +1,43 @@
-# Phoenics
+# Data-driven experiment planning strategies 
 
-[![Build Status](https://travis-ci.com/FlorianHase/phoenics.svg?token=rULvnKYmWdFF3JqQBVVW&branch=master)](https://travis-ci.com/FlorianHase/phoenics)
+As part of the Experiment Planners, we offer data-driven experiment planning strategies following principles of Bayesian optimization in combination with Bayesian kernel density estimation to perform cost-effective global optimization on physical experiments and/or resource-intensive computations.
 
-Phoenics is an open source optimization algorithm combining ideas from Bayesian optimization with Bayesian Kernel Density estimation [1]. It performs global optimization on expensive to evaluate objectives, such as physical experiments or demanding computations.
+The mathematical formulation of this algorithms provided in this repository are based on Phoenics [1]. Among several functionalities, Phoenics targets data-driven experiment planning tasks particularly in the context of chemistry and materials science. It is possible to use Phoenics for the rapid identification of optimal continuous process parameters for physical experiments or computations. Phoenics natively supports sequential and batch-wise optimizations. 
 
-Check out the `examples` folder for detailed descriptions and code examples for:
+![continuous_integration](https://github.com/chemos-inc-dev/phoenics/workflows/Continuous%20integration/badge.svg)
+[![codecov](https://codecov.io/gh/chemos-inc-dev/phoenics/branch/dev/graph/badge.svg?token=anTJ0HXjI6)](https://codecov.io/gh/chemos-inc-dev/phoenics)
+![github_license](https://img.shields.io/github/license/chemos-inc/phoenics)
+![github_issues](https://img.shields.io/github/issues/chemos-inc/experiment_planners)
+![pypi_version](https://img.shields.io/pypi/v/phoenics)
+
+Check out our `examples` for a few highlights and use cases of Phoenics.
 
 | Example | Link |
 |:--------|:-----|
 | Sequential optimization           |  [examples/optimization_sequential](https://github.com/chemos-inc/phoenics/tree/master/examples/optimization_sequential)  |
 
 
-# Installation
 
-## Environment (Optional)
+### Getting started
 
-We suggest to create a new environment for the installation of Phoenics to avoid any compatibility issues with pre-existing python packages. This is optional, but recommended.
+Phoenics is developed for Linux based systems. We also support MacOS and Windows, but support for these platforms is experimental at the moment. Although we hope that you will not encounter any issues we would appreciate if you contacted us should you run into any of them.
 
-This can be done with Venv or Anaconda.
-
-### Venv
-Create the virtual environment:
-```bash
-python -m venv venv
+###### Option 1 (recommended)
+Phoenics can be installed for all three platforms via pip
 ```
-Activate (Unix):
-```bash
-source venv/bin/activate
-```
-Activate (Windows):
-```bash
-.\venv\Scripts\activate
+pip install phoenics 
 ```
 
-A `venv` folder will be created in the current directory and the virtual enviroment will be activated.
-
-Note: Edward backend requires Python 3.6 in order to install all needed dependencies. Python version can be specified as follow:
-
-```bash
-python3.6 -m venv venv
+###### Option 2
+For Linux systems, Phoenics is also available through anaconda
+```
+conda install -c chemos phoenics
 ```
 
+###### Option 3
+If you would like to install `Phoenics` from source you can clone this repository and execute the following steps
 
-### Anaconda
-
-```bash
-conda create --name venv
-conda activate venv
 ```
-
-Note: Edward backend requires Python 3.6 in order to install all needed dependencies. Python version can be specified as follow:
-
-```bash
-conda create --name venv python=3.6
-```
-
-## Phoenics as pip module
-
-Phoenics can be installed directly with pip:
-
-```bash
-apt-get install python-pip
-python -m pip install phoenics
-```
-
-## Phoenics from source
-
-Phoenics can also be installed from source. This way allows anyone to make and test changes on the code.
-```bash
 git clone https://github.com/chemos-inc/phoenics.git
 cd phoenics
 python -m pip install -U pip
@@ -75,74 +45,47 @@ python -m pip install -r requirements.txt
 python -m pip install -e .
 ```
 
-# Dependencies and requirements
-
-This code has been tested with Python 3.6 and 3.7 on Unix platforms and on Windows 10.
-
-## PIP
- It requires the following `pip` packages:
-* numpy
-* pyyaml >= 5.1
-* sqlalchemy >= 1.3
-* watchdog >= 0.9
-* wheel >= 0.33
-
-These will be automatically installed by running the `setup.py` or by installing Phoenics as a pip module.
-
-## Windows
-Requirements for Windows:
-*  `Microsoft C++ Build Tools` ([Download Link](https://visualstudio.microsoft.com/visual-cpp-build-tools/))
-*  64-bit version of Python ([Python 3.6.8 64 bit installer](https://www.python.org/ftp/python/3.6.8/python-3.6.8-amd64.exe))
-
-## Backend
-Phoenics requires additional modules for the backend of its Bayesian Neural Network. Two options are currently supported: `tensorflow-probability` and `edward`.
-### Tensorflow probability
-To use this backend, specify it in the configuration file:
-```json
-"backend": "tfprob"
+The partial installation of `Phoenics` with a particular backend is possible via 
 ```
-Install it with:
-```bash
-python -m pip install tensorflow==1.15
-python -m pip install tensorflow-probability==0.8.0
+pip install -e .[<backend>]
 ```
-Note: A warning will be generated if a version lower than 41.0.0 of `setuptools` is installed. To fix the warning run:
-```bash
-python -m pip install setuptools==41.0.0
+or
 ```
-### Edward
-To use this backend, specify it in the configuration file:
-```json
-"backend": "edward"
+pip install -e .\[<backend>\]
 ```
-Install it with:
-```bash
-python -m pip install edward==1.3.5
-python -m pip install tensorflow==1.4.1
-```
+when using a Z shell, where `<backend>` indicates the selected backend (`edward` or `tfprob`).
 
-Note: `tensorflow==1.4.1` can not be installed with Python 3.7+.
+**Note**: We recommend to install Phoenics in a separate environment which could be create with [`venv`](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) or [`anaconda`](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) 
 
-# Run the example
 
-```bash
-git clone git@github.com:chemos-inc/phoenics.git
-cd phoenics
-python -m venv venv
-source venv/bin/activate # on Windows: .\venv\Scripts\activate
-python -m pip install -U pip
-python -m pip install setuptools==41.0.0
-python -m pip install -r requirements.txt
-python -m pip install tensorflow==1.15
-python -m pip install tensorflow-probability==0.8.0
-python -m pip install -e .
-cd examples/optimization_sequential/
-python ./optimize_branin.py
-```
+##### Dependencies 
 
-# Using Phoenics
+Phoenics is developed for Python >= 3.6 and supported on plaforms based on Unix and Windows 10. It relies on the following Python packages (summarized in `requirements.txt`):
 
-Phoenics is designed to suggest new parameter points based on prior observations. The suggested parameters can then be passed on to objective evaluations (experiments or involved computation). As soon as the objective values have been determined for a set of parameters, these new observations can again be passed on to Phoenics to request new, more informative parameters.
+- `numpy` 
+- `pyyaml` >= 5.1
+- `sqlalchemy` >= 1.3
+- `watchdog` >= 0.9
+- `wheel` >= 0.33
+
+For an installation on a Windows platform, we additionally require the `Microsoft C++ Build Tools` ([download link](https://visualstudio.microsoft.com/visual-cpp-build-tools/)).
+
+The inference steps of the algorithm are implemented in two different backends. The latest version runs on 
+
+- `tensorflow` == 1.15
+- `tensorflow-probability` == 0.8
+- `python` >= 3.7
+
+but we also support the older versions 
+
+- `tensorflow` == 1.4.1
+- `edward` == 1.3.5
+- `python` <= 3.6
+
+
+### Running Phoenics
+
+Phoenics identifies optimal parameter choices in a closed-loop approach. Given a set of prior observations, consisting of evaluated parameters and associated measurements, it can recommend several parameter choices for future evaluation. 
 
 ```python
 from phoenics import Phoenics
@@ -152,9 +95,9 @@ config_file = 'config.json'
 phoenics    = Phoenics(config_file)
 
 # request new parameters from a set of observations
-params      = phoenics.recommend(observations = observations)
+params = phoenics.recommend(observations=observations)
 ```
-Detailed examples for specific applications are presented in the `examples` folder.
+Detailed examples for specific applications are presented in the [examples](https://github.com/chemos-inc/phoenics/tree/master/examples) folder.
 
 ### Disclaimer
 
@@ -166,4 +109,4 @@ Please create a [new issue](https://github.com/chemos-inc/phoenics/issues/new/ch
 
 ### References
 
-[1] Häse, F., Roch, L. M., Kreisbeck, C., & Aspuru-Guzik, A. [Phoenics: A Bayesian Optimizer for Chemistry.](https://pubs.acs.org/doi/abs/10.1021/acscentsci.8b00307) ACS central science 4.6 (2018): 1134-1145.
+[1] Häse, F., Roch, L. M., Kreisbeck, C., & Aspuru-Guzik, A. [Phoenics: A Bayesian Optimizer for Chemistry.](https://pubs.acs.org/doi/abs/10.1021/acscentsci.8b00307) *ACS Cent. Sci.* **4**.6 (2018): 1134-1145.
