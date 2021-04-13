@@ -49,9 +49,8 @@ setup(
         'Programming Language :: Python',
         'Topic :: Scientific/Engineering',
     ],
-    url              = 'https://github.com/chemos-inc/phoenics',
-    author           = 'ChemOS Inc.',
-    author_email     = 'florian@chemos.io',
+    url              = 'https://github.com/Atinary-technologies/phoenics',
+    author           = 'Atinary Technologies',
     license          = 'Apache license, version 2',
     packages         = [
 		'phoenics',
@@ -77,11 +76,15 @@ setup(
     zip_safe         = False,
     tests_require    = ['pytest'],
     install_requires = [
-		'numpy',
-		'pyyaml>=5.1',
-		'sqlalchemy>=1.3',
-		'watchdog>=0.9',
-		'wheel>=0.33'
-	],
+        "Cython==0.29.22",
+        "edward2 @ git+https://github.com/google/edward2.git@a06c3abd8ec9aa4928aad6ae336e7c0324edcbc7",
+        "matplotlib==3.4.1",
+        "numpy==1.19.2",
+        "pandas==1.2.3",
+        "seaborn==0.11.1",
+        "SQLAlchemy==1.4.6",
+        "tensorflow==2.4.0",
+        "tensorflow-probability==0.12.0"
+    ],
     python_requires  = '>=3.6',
 )
