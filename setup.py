@@ -50,7 +50,7 @@ setup(
         'Topic :: Scientific/Engineering',
     ],
     url              = 'https://github.com/Atinary-technologies/phoenics',
-    author           = 'Atinary Technologies',
+    author           = 'Atinary Technologies Inc. & Atinary Technologies Sarl',
     license          = 'Apache license, version 2',
     packages         = [
 		'phoenics',
