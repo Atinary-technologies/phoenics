@@ -69,7 +69,7 @@ The config file (`config.json`) defines the optimization problem and the setup o
 - `general`. It contains hyperparameter choices that will affect the performance of Phoenics. The whole list of hyperparameters and their default values are available at `src/phoenics/utilities/defaults.py`. An important hyperparameter (type) is:
     - `sampling_strategies` (int): Number of acquisition functions as per the Phoenics framework. By default, *n* sampling strategies are sampled evenly across the interval [-1, 1], i.e. `lambdas = np.linspace(-1, 1, n)`.
 
-- `parameters`. It characterizes the parameters that are to be optimized. Phoenics only supports continuous parameters. For problems with categorical, discrete and/or categorical parameters we refer the user to the [Gryffin github](https://github.com/Atinary-technologies/gryffin) repositoryi [2]. Continuous parameters are characterized with a number of attributes.
+- `parameters`. It characterizes the parameters that are to be optimized. Phoenics only supports continuous parameters. For problems with categorical, discrete and/or continuous parameters we refer the user to the [Gryffin github](https://github.com/Atinary-technologies/gryffin) repository [2]. Continuous parameters are characterized with a number of attributes.
     - `high` (float): The parameter is upper bounded by this value.
     - `low` (float): The parameter is lower bounded by this value.
     - `size` (int): It enables the possibility to define a number of parameters with the same characteristics (i.e., `high` and `low` hyperparameter values) at once.
