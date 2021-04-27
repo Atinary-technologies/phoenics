@@ -18,7 +18,7 @@ Check out our `examples` for a few highlights and use cases of Phoenics.
 
 ## Getting started
 
-Phoenics is developed for Linux based systems. Although we hope that you will not encounter any issues we would appreciate if you contacted us should you run into any of them.
+Phoenics is developed for Linux based systems. Please contact us should you run into issues.
 
 To install Phoenics from source you can clone this repository and execute the following steps.
 
