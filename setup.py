@@ -84,7 +84,7 @@ setup(
         "seaborn==0.11.1",
         "SQLAlchemy==1.4.6",
         "tensorflow==2.4.0",
-        "tensorflow-probability==0.12.0"
+        "tensorflow-probability==0.11.0"
     ],
     python_requires  = '>=3.6',
 )
